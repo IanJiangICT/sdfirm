@@ -539,6 +539,10 @@ void early_fixmap_init(void)
 	}
 }
 
+#ifdef CONFIG_GEM5
+extern void simpoint_heap_map(pgd_t *pgdp);
+#endif
+
 void paging_init(void)
 {
 	pgd_t *pgdp;
@@ -558,7 +562,11 @@ void paging_init(void)
 #else
 	pgdp = pgd_set_fixmap(__pa_symbol(mmu_id_map));
 #endif
+#ifdef CONFIG_GEM5
+	simpoint_heap_map(pgdp);
+#else
 	map_mem(pgdp);
+#endif
 	pgd_clear_fixmap();
 #endif
 

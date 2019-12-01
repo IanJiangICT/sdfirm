@@ -70,6 +70,10 @@ void ris_entry(void);
 #define ris_entry()	do { } while (0)
 #endif
 
+#ifdef CONFIG_GEM5
+extern void simpoint_entry(void);
+#endif
+
 #ifndef CONFIG_PORTING
 void system_init(void)
 {
@@ -98,6 +102,10 @@ void system_init(void)
 #endif
 	timer_init();
 	paging_init();
+#ifdef CONFIG_GEM5
+	con_dbg("Simpoint: Starting...");
+	simpoint_entry();
+#endif
 	page_init();
 	heap_init();
 	bulk_init();
