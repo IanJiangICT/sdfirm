@@ -332,8 +332,8 @@ static void map_kernel_segment(pgd_t *pgdp, void *va_start, void *va_end,
 	phys_addr_t pa_start = __pa_symbol(va_start);
 	phys_addr_t size = va_end - va_start;
 
-	BUG_ON(!PAGE_ALIGNED(pa_start));
-	BUG_ON(!PAGE_ALIGNED(size));
+	BUG_ON(!PAGE_ALIGN(pa_start));
+	BUG_ON(!PAGE_ALIGN(size));
 
 	__create_pgd_mapping(pgdp, pa_start, (caddr_t)va_start, size, prot,
 			     early_pgtable_alloc, flags);
